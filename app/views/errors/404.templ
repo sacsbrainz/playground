@@ -1,0 +1,13 @@
+package errors
+
+import "playground/app/views/layouts"
+
+templ Error404() {
+	@layouts.BaseLayout() {
+		<div class="h-screen w-full px-5 flex flex-col text-center justify-center align-middle items-center gap-5">
+			<div class="text-muted-foreground text-5xl font-bold">404</div>
+			<div class="text-lg">The page you are looking for does not exist</div>
+			<a class="underline text-blue-600" href="/">Take me back</a>
+		</div>
+	}
+}

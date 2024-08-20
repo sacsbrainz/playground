@@ -1,0 +1,15 @@
+package layouts
+
+import "playground/app/views/components"
+
+templ App() {
+	@BaseLayout() {
+		@components.Navigation()
+		<div class="flex">
+			@components.SideBar()
+			<div class="p-4 w-full h-[calc(100svh-60px)] bg-base-300 overflow-y-auto">
+				{ children... }
+			</div>
+		</div>
+	}
+}

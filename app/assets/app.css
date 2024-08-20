@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* fix for Alpine users. */
+[x-cloak] {
+  display: none !important;
+}
+
+@layer base {
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/public/assets/Inter-Regular.woff2") format("woff2");
+  }
+  .h-screen {
+    height: 100svh;
+  }
+
+  /* for htmx loading-states */
+  [data-loading] {
+    display: none;
+  }
+}

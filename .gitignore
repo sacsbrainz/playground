@@ -1,0 +1,10 @@
+bin
+*_templ.go
+*_templ.txt
+node_modules
+tmp
+.env
+*_db
+*.db*
+storage
+package-lock.json

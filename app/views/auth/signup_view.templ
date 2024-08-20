@@ -1,0 +1,175 @@
+package auth
+
+import (
+	"playground/app/utils"
+	"playground/app/views/components"
+	"playground/app/views/layouts"
+)
+
+templ SignUpIndex(data *utils.GlobalFormState) {
+	@layouts.BaseLayout() {
+		<div class="flex w-full h-screen">
+			<div class="flex justify-center items-center w-full">
+				@SignUpForm(data)
+			</div>
+			<div class="p-12 bg-gradient-to-tr w-[35vw] hidden lg:flex lg:flex-col border-l">
+				<span class="text-5xl font-extrabold">
+					Welcome to Playground!
+				</span>
+			</div>
+		</div>
+	}
+}
+
+templ SignUpForm(data *utils.GlobalFormState) {
+	<form
+		hx-post="/auth/signup/email"
+		hx-swap="outerHTML"
+		data-loading-target="#loading"
+		data-loading-class-remove="hidden"
+		class=" max-w-lg w-full flex gap-5 lg:gap-6 lg:border px-4 lg:p-4 lg:rounded-3xl lg:shadow-md flex-col justify-center"
+	>
+		@components.CSRF()
+		<div class="">
+			<span class="font-semibold text-2xl">Sign up</span>
+			<p class="pt-2 text-sm">Create an account with Playground to get started.</p>
+		</div>
+		<div class="flex gap-2 flex-col lg:flex-row">
+			<div class="w-full">
+				<label
+					for="first_name"
+					class="block mb-1 text-sm font-medium "
+				>
+					First name
+				</label>
+				<input
+					type="text"
+					name="first_name"
+					placeholder="John"
+					required="true"
+					minlength="3"
+					value={ data.GetFormValue("first_name") }
+					class="w-full placeholder:text-sm rounded-2xl border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
+				/>
+				if data.HasError("first_name") {
+					<span class="text-red-500 text-xs mt-1">{ data.GetError("first_name") }</span>
+				}
+			</div>
+			<div class="w-full">
+				<label
+					for="last_name"
+					class="block mb-1 text-sm font-medium "
+				>
+					Last name
+				</label>
+				<input
+					type="text"
+					name="last_name"
+					placeholder="Doe"
+					required="true"
+					minlength="3"
+					value={ data.GetFormValue("last_name") }
+					class="w-full placeholder:text-sm rounded-2xl border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
+				/>
+				if data.HasError("last_name") {
+					<span class="text-red-500 text-xs mt-1">{ data.GetError("last_name") }</span>
+				}
+			</div>
+		</div>
+		<div class="w-full">
+			<label
+				for="email"
+				class="block mb-1 text-sm font-medium "
+			>
+				Email
+			</label>
+			<input
+				type="email"
+				name="email"
+				placeholder="Enter your email address"
+				required="true"
+				minlength="4"
+				value={ data.GetFormValue("email") }
+				class="w-full placeholder:text-sm rounded-2xl border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
+			/>
+			if data.HasError("email") {
+				<span class="text-red-500 text-xs mt-1">{ data.GetError("email") }</span>
+			}
+		</div>
+		<div class="w-full">
+			<label
+				for="password"
+				class="block mb-1 text-sm font-medium "
+			>
+				Password
+			</label>
+			<input
+				type="password"
+				name="password"
+				placeholder="********"
+				required="true"
+				minlength="8"
+				value={ data.GetFormValue("password") }
+				class="w-full placeholder:text-sm rounded-2xl border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
+			/>
+			if data.HasError("password") {
+				<span class="text-red-500 text-xs mt-1">{ data.GetError("password") }</span>
+			}
+		</div>
+		<div class="w-full">
+			<label
+				for="confirm_password"
+				class="block mb-1 text-sm font-medium "
+			>
+				Confirm password
+			</label>
+			<input
+				type="password"
+				name="confirm_password"
+				placeholder=""
+				required="true"
+				minlength="8"
+				value={ data.GetFormValue("confirm_password") }
+				class="w-full placeholder:text-sm rounded-2xl border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
+			/>
+			if data.HasError("confirm_password") {
+				<span class="text-red-500 text-xs mt-1">{ data.GetError("confirm_password") }</span>
+			}
+		</div>
+		<div class="text-xs flex gap-1">
+			<input
+				required="true"
+				class="rounded-sm h-4 w-4"
+				type="checkbox"
+				name="tc"
+				id=""
+			/>
+			<label
+				for="tc"
+				class="text-gray-600"
+			>
+				By proceeding, you agree to the
+				<a href="/tc" class="text-nowrap">Terms and Conditions</a>
+				<span>and</span>
+				<a href="/policy" class="text-nowrap">Privacy Policy</a>
+			</label>
+		</div>
+		<button
+			data-loading-disable
+			type="submit"
+			class="w-full flex items-center justify-center gap-2 bg-black text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-2xl py-3"
+		>
+			Sign up
+			<span id="loading" class="loading hidden loading-spinner loading-xs"></span>
+		</button>
+		<div class="text-sm flex gap-2 font-medium items-center justify-center">
+			<span>Already have a Playground account?</span>
+			<a href="/auth/login" class="flex items-center gap-1">
+				Log in 
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+				</svg>
+			</a>
+		</div>
+	</form>
+}

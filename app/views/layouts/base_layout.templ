@@ -1,0 +1,57 @@
+package layouts
+
+var (
+	title       = "Playground"
+	description = "LFG!!"
+	twitter     = "Playground"
+)
+
+templ BaseLayout() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<title>{ title }</title>
+			<link rel="icon" type="image/x-icon" href="/public/favicon.ico"/>
+			<link rel="manifest" href="/public/site.webmanifest"/>
+			<link rel="icon" href="/public/favicon.ico"/>
+			<meta
+				name="description"
+				property="og:description"
+				content={ description }
+			/>
+			<!-- OpenGraph Tags -->
+			<meta property="og:title" content={ title }/>
+			<meta property="og:type" content={ "website" }/>
+			// <meta property="og:url" content={canonicalUrl} />
+			<meta property="og:locale" content={ "en" }/>
+			<meta property="og:image" ccontent="/public/og.png"/>
+			<meta property="og:image:alt" content={ title }/>
+			<meta property="og:site_name" content={ title }/>
+			<!-- Twitter Tags -->
+			<meta name="twitter:card" content="summary_large_image"/>
+			<meta name="twitter:site" content={ twitter }/>
+			<meta name="twitter:creator" content={ twitter }/>
+			<meta name="twitter:title" content={ title }/>
+			<meta name="twitter:description" content={ description }/>
+			<meta name="twitter:image" ccontent="/public/og.png"/>
+			<meta name="twitter:image:alt" content={ title }/>
+			<!-- Google / Search Engine Tags -->
+			<meta itemProp="name" content="Playground"/>
+			<meta itemProp="description" content={ description }/>
+			<meta itemProp="image" content="/public/og.png"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<link rel="stylesheet" href="/public/assets/styles.css"/>
+			<!-- Alpine Core -->
+			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous" defer></script>
+			<script src="https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js"></script>
+			<script src="https://unpkg.com/htmx-ext-loading-states@2.0.0/loading-states.js"></script>
+			<meta name="htmx-config" content='{"globalViewTransitions":"true"}'/>
+		</head>
+		<body class="font-inter" hx-boost="true" hx-ext="loading-states" x-data="{theme: 'light'}" :data-theme="theme" lang="en">
+			{ children... }
+		</body>
+	</html>
+}

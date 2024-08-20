@@ -1,0 +1,8 @@
+{
+  "name": "Playground",
+  "short_name": "Playground",
+  "icons": [],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
