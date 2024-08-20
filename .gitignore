@@ -6,5 +6,4 @@ tmp
 .env
 *_db
 *.db*
-storage
 package-lock.json
